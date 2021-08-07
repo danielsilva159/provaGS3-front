@@ -1,7 +1,7 @@
 import { ClienteService } from './../cliente.service';
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/interfaces/cliente.interface';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar',
@@ -13,12 +13,17 @@ export class ListarComponent implements OnInit {
   clientes: Cliente[]
   constructor(
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private routes: ActivatedRoute
   ) { }
-
+    usuario = {login: null, senha: null};
   ngOnInit() {
+
     this.clienteService.listar().subscribe(dados =>{
-       this.clientes = dados;
+      this.routes.queryParams.subscribe(data =>{
+        this.usuario = {login: data.login, senha: data.senha}
+        this.clientes = dados;
+      });
 
     }, erro =>{console.log(erro);
     })
@@ -31,6 +36,9 @@ export class ListarComponent implements OnInit {
   }
   excluir(){
 
+  }
+  adicionar(){
+    this.router.navigate(['/cadastrar'])
   }
 
 }

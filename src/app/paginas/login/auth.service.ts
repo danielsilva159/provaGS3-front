@@ -13,7 +13,7 @@ mensagem = {tipo: null, msg: null}
 
 fazerLogin(usuario: Usuario){
   if((usuario.login === 'admin' && usuario.senha === '123456') || (usuario.login === 'comum' && usuario.senha === '123456')){
-    this.router.navigate(['/listar'])
+    this.router.navigate(['/listar'], {queryParams: usuario})
     this.autenticacao = true;
     this.mensagem.tipo = 1
     this.mensagem.msg = "Login Realizado com sucesso"

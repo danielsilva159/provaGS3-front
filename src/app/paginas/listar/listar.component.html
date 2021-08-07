@@ -1,5 +1,5 @@
 <div class="container">
-
+  <button *ngIf="usuario.login === 'admin'"  (click)="adicionar()" class="btn btn-info">Adicionar novo cliente</button>
   <table class="table">
     <thead>
       <tr>
