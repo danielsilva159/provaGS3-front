@@ -1,0 +1,29 @@
+.telefone{
+  display: flex;
+}
+.btn-add{
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.cad-endereco{
+  div{
+    input{
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.input-cpf{
+  display: flex;
+  input{
+    width: 70%;
+  }
+  button{
+    margin-left: 10px;
+  }
+}
+.footer-cadastro{
+  button{
+    margin-right: 10px;
+  }
+}

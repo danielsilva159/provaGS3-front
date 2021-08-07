@@ -1,0 +1,137 @@
+<div class="container">
+
+  <h2>Cadastrar um novo cliente</h2>
+  <form [formGroup]="cadastro" class="col-8">
+    <div class="mb-3">
+      <input type="text"   class="form-control" id="nome" formControlName="nome" placeholder="Nome.:" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || event.charCode === 32" />
+    </div>
+    <div class="mb-3 input-cpf">
+      <input type="text" [textMask]="{mask: mascaraCpf}" class="form-control" id="cpf" formControlName="cpf" required placeholder="CPF.:">
+      <button class="btn btn-success "  data-toggle="modal" data-target="#modalEmail">adicionar novo email</button>
+    </div>
+    <div class="mb-3" *ngFor="let e of cliente.email"  >
+      <input type="email" disabled class="form-control" id="email"  placeholder="Email.:" value="{{e.email}}">
+    </div>
+    <button class="btn btn-success btn-add"  data-toggle="modal" data-target="#modalTelefone">adicionar novo telefone</button>
+    <button class="btn btn-success btn-add"  data-toggle="modal" data-target="#modalEndereco">adicionar novo endereço</button>
+    <h2 *ngIf="telefones.length" >Telefones salvos</h2>
+    <div class="mb-3" id="lista-telefone" *ngFor="let item of telefones">
+      <div class="row lista-telefone" >
+        <div class="col-6">
+          <input type="text" disabled  id="telefone" class="form-control" value="{{item.numero}}">
+        </div>
+        <div class="col-6">
+          <input type="text" disabled id="telefone" class="form-control" value="{{item.tipo}}">
+        </div>
+      </div>
+    </div>
+
+    <h2 *ngIf="enderecos.length" >Endereços salvos</h2>
+    <div class="mb-3" id="lista-telefone" *ngFor="let item of enderecos">
+      <div class="row lista-telefone" >
+        <div class="col-6">
+          <input type="text" disabled id="cep" class="form-control" value="{{item.cep}}">
+        </div>
+        <div class="col-6">
+          <input type="text" disabled id="logradouro" class="form-control" value="{{item.logradouro}}">
+        </div>
+        <div class="col-6">
+          <input type="text" disabled id="bairro" class="form-control" value="{{item.bairro}}">
+        </div>
+        <div class="col-6">
+          <input type="text" disabled id="uf" class="form-control" value="{{item.uf}}">
+        </div>
+        <div class="col-6">
+          <input type="text" disabled id="cidade" class="form-control" value="{{item.cidade}}">
+        </div>
+        <div class="col-6" *ngIf="item.complemento" >
+          <input type="text" disabled id="complemento" class="form-control" value="{{item.complemento}}">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mb-3 footer-cadastro">
+      <button class="btn btn-primary" [disabled]="!habilitarSalvarCliente()" (click)="salvarCliente()">Salvar</button>
+      <button class="btn btn-secondary"(click)="botaoCancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+<!--Modal telefone-->
+<div class="modal" id="modalTelefone" tabindex="-1" role="dialog"  [formGroup]="telefone">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastrar telefone</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row lista-telefone" >
+          <div class="col-6">
+            <input type="text" id="telefone" class="form-control" formControlName="numero" [textMask]="{mask: mascaraTelefone}"  placeholder="Telefone.:">
+          </div>
+          <div class="col-6">
+            <select name="tipo" id="" class="form-control" formControlName="tipo"(change)="tipoTelefone()">
+              <option [selected]="true" disabled>Selecione um tipo</option>
+              <option value="residencial">Residêncial</option>
+              <option value="comercial">Comercial</option>
+              <option value="celular">Celular</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  #closeModalTelefone [disabled]="!telefone.valid" class="btn btn-primary"  (click)="salvarTelefone($event)">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal endereço-->
+<div class="modal" id="modalEndereco" tabindex="-1" role="dialog"  [formGroup]="endereco">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastrar endereço</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row cad-endereco" >
+          <div class="col-12">
+            <input type="text" id="cep"[textMask]="{mask: mascaraCep}" (change)="buscarCep()" class="form-control" formControlName="cep"  placeholder="Cep.:">
+            <input type="text" id="logradouro" disabled class="form-control" formControlName="logradouro"  placeholder="Logradouro.:" value={{endereco.value.logradouro}}>
+            <input type="text" id="bairro" disabled class="form-control" formControlName="bairro"  placeholder="Bairro.:" value={{endereco.value.bairro}}>
+            <input type="text" id="cidade" disabled class="form-control" formControlName="cidade"  placeholder="Cidade.:" value={{endereco.value.cidade}}>
+            <input type="text" id="uf" disabled class="form-control" formControlName="uf"  placeholder="UF.:" value={{endereco.value.uf}}>
+            <input type="text" id="complemento" class="form-control" formControlName="complemento"  placeholder="Complemento.:" value={{endereco.value.complemento}}>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!endereco.valid" (click)="salvarEndereco()" data-dismiss="modal" data-target="#modalEndereco">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal email-->
+<div class="modal" id="modalEmail" tabindex="-1" role="dialog"  [formGroup]="cadastro">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastrar email</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row cad-endereco" >
+          <div class="col-12">
+             <input type="text" id="email" class="form-control" formControlName="email"  placeholder="Email.:" value={{cadastro.value.email}}>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!cadastro.value.email" (click)="salvarEmail()" data-dismiss="modal">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

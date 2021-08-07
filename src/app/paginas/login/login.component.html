@@ -1,0 +1,17 @@
+<div class="col-12 " >
+  <div class="alert alert-danger" *ngIf="mensagem.tipo===2" >{{mensagem.msg}}</div>
+  <div class="alert alert-success" *ngIf="mensagem.tipo===1" >{{mensagem.msg}}</div>
+  <form class="login" [formGroup]="logar">
+    <div class="mb-3">
+      <label for="login" class="form-label">Login.:</label>
+      <input type="text" class="form-control" id="login" formControlName="login" placeholder="Login.:">
+    </div>
+    <div class="mb-3">
+      <label for="senha" class="form-label">Senha.:</label>
+      <input type="password" class="form-control" id="senha" formControlName="senha" placeholder="Informa sua senha">
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-primary"[disabled]="!logar.valid" (click)="redireciona()">Entrar</button>
+    </div>
+  </form>
+</div>
