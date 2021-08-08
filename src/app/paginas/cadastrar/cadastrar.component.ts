@@ -53,7 +53,7 @@ export class CadastrarComponent implements OnInit {
 
   ngOnInit() {
     this.routes.params.subscribe(dados =>{
-      if(dados){
+      if(dados.id){
        this.editarCliente(dados);
       }
     })
