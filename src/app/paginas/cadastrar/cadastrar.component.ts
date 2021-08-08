@@ -205,4 +205,14 @@ colocandoMascaraCep(cep){
   cepAjustado = `${parte1}.${parte2}-${parte3}`
   return cepAjustado;
 }
+
+deletarTelefone(index){
+  this.telefones.splice(index,1);
+}
+deletarEndereco(index){
+  this.enderecos.splice(index,1);
+}
+deletarEmail(index){
+  this.cliente.email.splice(index,1);
+}
 }

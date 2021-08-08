@@ -9,25 +9,30 @@
       <input type="text" [textMask]="{mask: mascaraCpf}" class="form-control" id="cpf" formControlName="cpf" required placeholder="CPF.:">
       <button class="btn btn-success "  data-toggle="modal" data-target="#modalEmail">adicionar novo email</button>
     </div>
-    <div class="mb-3" *ngFor="let e of cliente.email"  >
-      <input type="email" disabled class="form-control" id="email"  placeholder="Email.:" value="{{e.email}}">
+    <div class="mb-3 row" *ngFor="let e of cliente.email; let i = index"  >
+      <div class="col-7"><input type="email" disabled class="form-control" id="email"  placeholder="Email.:" value="{{e.email}}"></div>
+      <div class="col-2"><button class="btn btn-danger" (click)="deletarEmail(i)">Deletar Email</button></div>
     </div>
     <button class="btn btn-success btn-add"  data-toggle="modal" data-target="#modalTelefone">adicionar novo telefone</button>
     <button class="btn btn-success btn-add"  data-toggle="modal" data-target="#modalEndereco">adicionar novo endereço</button>
     <h2 *ngIf="telefones.length" >Telefones salvos</h2>
-    <div class="mb-3" id="lista-telefone" *ngFor="let item of telefones">
+    <div class="mb-3" id="lista-telefone" *ngFor="let item of telefones; let i = index">
       <div class="row lista-telefone" >
-        <div class="col-6">
+        <div class="col-5">
           <input type="text" disabled  id="telefone" class="form-control" value="{{item.numero}}">
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <input type="text" disabled id="telefone" class="form-control" value="{{item.tipo}}">
+        </div>
+        <div class="col-3">
+          <button class="btn btn-danger" (click)="deletarTelefone(i)">Deletar telefone</button>
         </div>
       </div>
     </div>
 
     <h2 *ngIf="enderecos.length" >Endereços salvos</h2>
-    <div class="mb-3" id="lista-telefone" *ngFor="let item of enderecos">
+    <div class="mb-3" id="lista-telefone" *ngFor="let item of enderecos; let i = index">
+      <button class="btn btn-danger" (click)="deletarEndereco(i)">Deletar Endereco</button>
       <div class="row lista-telefone" >
         <div class="col-6">
           <input type="text" disabled id="cep" class="form-control" value="{{item.cep}}">
