@@ -98,10 +98,10 @@
         <div class="row cad-endereco" >
           <div class="col-12">
             <input type="text" id="cep"[textMask]="{mask: mascaraCep}" (change)="buscarCep()" class="form-control" formControlName="cep"  placeholder="Cep.:">
-            <input type="text" id="logradouro" disabled class="form-control" formControlName="logradouro"  placeholder="Logradouro.:" value={{endereco.value.logradouro}}>
-            <input type="text" id="bairro" disabled class="form-control" formControlName="bairro"  placeholder="Bairro.:" value={{endereco.value.bairro}}>
-            <input type="text" id="cidade" disabled class="form-control" formControlName="cidade"  placeholder="Cidade.:" value={{endereco.value.cidade}}>
-            <input type="text" id="uf" disabled class="form-control" formControlName="uf"  placeholder="UF.:" value={{endereco.value.uf}}>
+            <input type="text" id="logradouro"  class="form-control" formControlName="logradouro"  placeholder="Logradouro.:" value={{endereco.value.logradouro}}>
+            <input type="text" id="bairro"  class="form-control" formControlName="bairro"  placeholder="Bairro.:" value={{endereco.value.bairro}}>
+            <input type="text" id="cidade"  class="form-control" formControlName="cidade"  placeholder="Cidade.:" value={{endereco.value.cidade}}>
+            <input type="text" id="uf"  class="form-control" formControlName="uf"  placeholder="UF.:" value={{endereco.value.uf}}>
             <input type="text" id="complemento" class="form-control" formControlName="complemento"  placeholder="Complemento.:" value={{endereco.value.complemento}}>
           </div>
         </div>
