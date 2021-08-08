@@ -1,4 +1,5 @@
 export interface Endereco{
+  id?:number,
   logradouro?: string,
   bairro?: string,
   cidade?: string,

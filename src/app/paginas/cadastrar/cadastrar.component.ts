@@ -95,6 +95,9 @@ salvarEndereco(){
 
 salvarCliente(){
   this.cliente = this.verificarDados(this.cliente)
+
+  console.log(this.cliente);
+
 this.clienteService.salvar(this.cliente).subscribe(dados =>{
   this.router.navigate(['/listar']);
 
@@ -110,6 +113,7 @@ verificarDados(cliente:Cliente){
   this.cliente.cpf = this.cadastro.value.cpf.replace(this.regex, '');
   this.enderecos.forEach(dados =>{
     this.cliente.endereco.push({
+          id: dados.id,
           bairro: dados.bairro,
           cep: dados.cep.replace(this.regex, ''),
           cidade: dados.cidade,
@@ -132,6 +136,7 @@ verificarDados(cliente:Cliente){
             break;
     }
     this.cliente.telefone.push({
+      id: tel.id,
       numero: tel.numero.replace(this.regex, ''),
       tipo: tipoTelefone
     });
@@ -160,6 +165,8 @@ habilitarSalvarCliente(){
 }
 editarCliente(dados){
   this.clienteService.editar(dados.id).subscribe(c =>{
+    console.log(c);
+
     this.cliente.id  = dados.id;
     this.cadastro.controls.nome.setValue(c.nome);
     this.cadastro.controls.cpf.setValue(c.cpf);
@@ -211,6 +218,8 @@ deletarTelefone(index){
 }
 deletarEndereco(index){
   this.enderecos.splice(index,1);
+  console.log(this.enderecos);
+
 }
 deletarEmail(index){
   this.cliente.email.splice(index,1);

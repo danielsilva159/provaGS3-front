@@ -20,22 +20,25 @@ export class ListarComponent implements OnInit {
   ) { }
     usuario = {login: null, senha: null};
   ngOnInit() {
-    this.clienteService.listar().subscribe(dados =>{
-        this.usuario = this.auth.usuarioLogado();
-        this.clientes = dados;
-    }, erro =>{console.log(erro);
-    })
-
+    this.listar();
   }
 
   editar(id){
     this.router.navigate([`/cadastrar/${id}`]);
   }
   excluir(id){
-    this.clienteService.excluir(id).subscribe(data =>{
-      console.log(data);
-
+    this.clienteService.excluir(id).subscribe(() =>{
+      this.listar();
     })
+  }
+
+  listar(){
+    this.clienteService.listar().subscribe(dados =>{
+      this.usuario = this.auth.usuarioLogado();
+      this.clientes = dados;
+  }, erro =>{console.log(erro);
+  })
+
   }
 
 }
