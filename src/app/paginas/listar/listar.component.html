@@ -1,12 +1,12 @@
 <div class="container">
-  <button *ngIf="usuario.login === 'admin'"  (click)="adicionar()" class="btn btn-info">Adicionar novo cliente</button>
+  <button *ngIf="usuario.login === 'admin'" [routerLink]="['/cadastrar']" class="btn btn-info">Adicionar novo cliente</button>
   <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nome</th>
         <th scope="col">CPF</th>
-        <th scope="col">Opções</th>
+        <th scope="col" *ngIf="usuario.login === 'admin'">Opções</th>
       </tr>
     </thead>
     <tbody>
@@ -15,8 +15,8 @@
         <td>{{cliente.nome}}</td>
         <td>{{cliente.cpf}}</td>
         <td>
-          <button (click)="editar(cliente.id)" class="btn btn-success">Editar</button>
-          <button (click)="excluir()" class="btn btn-danger">Excluir</button>
+          <button (click)="editar(cliente.id)" *ngIf="usuario.login === 'admin'" class="btn btn-success">Editar</button>
+          <button (click)="excluir(cliente.id)" *ngIf="usuario.login === 'admin'" class="btn btn-danger">Excluir</button>
         </td>
       </tr>
     </tbody>

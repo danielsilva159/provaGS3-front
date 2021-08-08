@@ -20,15 +20,13 @@ export class ClienteService {
         catchError(this.handleError))
   }
   salvar(cliente: Cliente):Observable<Cliente>{
-    console.log(cliente);
-
     return this.http.post('/api/cliente', cliente)
       .pipe(
         retry(2),
         catchError(this.handleError))
   }
   editar(id_cliente: number):Observable<Cliente>{
-    return this.http.get(`/api/cliente/${id_cliente}`)
+    return this.http.get(`/api/cliente/buscarid/${id_cliente}`)
       .pipe(
         retry(2),
         catchError(this.handleError))
@@ -38,6 +36,13 @@ export class ClienteService {
     .pipe(
       retry(2),
       catchError(this.handleError))
+  }
+
+  excluir(id_cliente: number):Observable<Cliente>{
+    return this.http.delete(`/api/cliente/${id_cliente}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
   }
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';

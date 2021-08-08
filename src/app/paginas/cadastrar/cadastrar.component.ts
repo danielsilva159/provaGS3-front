@@ -56,7 +56,6 @@ export class CadastrarComponent implements OnInit {
       if(dados){
        this.editarCliente(dados);
       }
-
     })
   }
 
